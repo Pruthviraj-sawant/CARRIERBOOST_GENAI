@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AsteroidBelt } from "sparkels_ui";
+import { AsteroidBelt, RealisticMeteors ,ThunderScene,Jelly,HackerBackground} from "sparkels_ui";
 
 const features = [
   {
@@ -33,6 +33,8 @@ const Hero = () => {
        
 <div className='z-0'>
         <AsteroidBelt  />
+    
+   
         </div>
       <div className=" mx-auto text-center">
        
