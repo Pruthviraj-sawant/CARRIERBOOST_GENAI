@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Hero from './pages/hero';
 import './App.css';
 import React from 'react';
-
+import Footer from './components/footer';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
@@ -44,7 +44,7 @@ function App() {
 
         </Routes>
           
-  
+  <Footer/>
       </div>
     </Router>
 

@@ -18,16 +18,45 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="username" placeholder="Username" onChange={handleChange} required />
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-        <button type="submit">Register</button>
-      </form>
-      <p>{message}</p>
-    </div>
+    <div className='flex justify-center items-center h-screen '>
+    <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-xl shadow-md">
+    <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Register</h2>
+    
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <input
+        name="username"
+        placeholder="Username"
+        onChange={handleChange}
+        required
+        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        name="email"
+        type="email"
+        placeholder="Email"
+        onChange={handleChange}
+        required
+        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        name="password"
+        type="password"
+        placeholder="Password"
+        onChange={handleChange}
+        required
+        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
+      >
+        Register
+      </button>
+    </form>
+  
+    <p className="mt-4 text-center text-sm text-gray-600">{message}</p>
+  </div>
+  </div>
   );
 };
 

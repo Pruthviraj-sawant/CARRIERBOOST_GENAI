@@ -25,8 +25,8 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-96 rounded-xl">
+        <h2 className="text-2xl font-semibold mb-4 text-blue-600">Login</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
