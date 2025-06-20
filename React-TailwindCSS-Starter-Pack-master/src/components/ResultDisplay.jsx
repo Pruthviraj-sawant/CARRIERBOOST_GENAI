@@ -76,7 +76,7 @@ const ResultDisplay = ({ result, resultCount }) => {
         Generated Letter {resultCount}
       </h2>
 
-      <div className="whitespace-pre-line text-gray-700 leading-relaxed mb-4 min-h-[150px]">
+      <div className="whitespace-pre-line text-gray-700 leading-relaxed mb-4 min-h-[150px] w-[40rem]">
         {displayedText || 'Your generated letter will appear here...'}
       </div>
 

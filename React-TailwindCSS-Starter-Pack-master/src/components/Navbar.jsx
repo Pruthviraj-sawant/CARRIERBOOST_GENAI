@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
+import UserSearch from './searchbar';
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -32,10 +32,18 @@ const Navbar = () => {
               resume-chechker
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/leetecode-traker" className="hover:text-blue-500 transition">
               leetecode-traker
             </Link>
+          </li>
+            <li>
+            <Link to="/leetecode-traker" className="hover:text-blue-500 transition">
+              leetecode-traker
+            </Link>
+          </li> */}
+          <li>
+            <UserSearch />
           </li>
           {!token ? (
             <>

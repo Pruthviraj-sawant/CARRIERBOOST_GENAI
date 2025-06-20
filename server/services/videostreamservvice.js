@@ -62,7 +62,7 @@ const generateQuestion = async (previousAnswer) => {
         parts: [
           {
             text: `Based on the given answer,  generate ONLY one interview question. 
-Do NOT provide any explanation, elaboration, or reasoning. Only the question on : "${previousAnswer}"`
+Do NOT provide any explanation, elaboration, or reasoning. Only the question on : "${previousAnswer}" `
           }
         ]
       }

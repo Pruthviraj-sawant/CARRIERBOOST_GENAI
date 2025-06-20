@@ -22,16 +22,25 @@ function Video() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <h1 className="text-3xl font-bold mb-6">AI Interviewer</h1>
 
       {/* Video Streaming Component */}
       <h1 className="text-2xl font-semibold mb-4">Video Stream interview through audio</h1>
-      <VideoStream />
+      {/* <VideoStream /> */}
 
       <InterviewQuestion  />
 
       {/* Interview Question */}
+
+      </div>
+
+<div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4'>
+      <h1 className="text-3xl font-bold mb-6">AI Interviewer</h1>
+
+{/* Video Streaming Component */}
+<h1 className="text-2xl font-semibold mb-4"> interview through TEXT</h1>
       <div className="mt-6 p-4 bg-white rounded shadow-md w-full max-w-2xl text-center">
         <h2 className="text-xl font-semibold mb-4">Current Question:</h2>
         <p className="text-gray-700">{currentQuestion}</p>
@@ -53,6 +62,7 @@ function Video() {
         >
           Submit Answer
         </button>
+      </div>
       </div>
     </div>
   );

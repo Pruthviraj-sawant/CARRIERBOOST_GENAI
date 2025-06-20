@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import { Search, User, Code, GitBranch, Star, Activity } from "lucide-react";
 
 function SimpleGithubProfileFetcher() {
@@ -8,6 +8,26 @@ function SimpleGithubProfileFetcher() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [searchFocus, setSearchFocus] = useState(false);
+
+
+    useEffect(() => {
+      const savedUsername = localStorage.getItem("githubUsername");
+      if (savedUsername) {
+        setUsername(savedUsername);
+      }
+    }, []);
+  
+    // Debounced search when username changes
+    useEffect(() => {
+      const delayDebounce = setTimeout(() => {
+        if (username.trim()) {
+          localStorage.setItem("githubUsername", username); // Save to localStorage
+          fetchProfile();
+        }
+      }, 600); // debounce time
+  
+      return () => clearTimeout(delayDebounce);
+    }, [username]);
 
   const fetchProfile = async () => {
     if (!username.trim()) {
@@ -61,7 +81,7 @@ function SimpleGithubProfileFetcher() {
         </div>
         
         {/* Search Box */}
-        <div className={`relative mb-8 ${searchFocus ? 'scale-105' : ''} transition-all duration-300`}>
+        {/* <div className={`relative mb-8 ${searchFocus ? 'scale-105' : ''} transition-all duration-300`}>
           <div className={`bg-gray-800 p-1 rounded-lg border-2 flex items-center overflow-hidden ${searchFocus ? 'border-blue-500 shadow-lg shadow-blue-500/30' : 'border-gray-700'}`}>
             <input
               type="text"
@@ -93,8 +113,39 @@ function SimpleGithubProfileFetcher() {
               ) : "Search"}
             </button>
           </div>
-        </div>
-
+        </div> */}
+<div className={`relative transition-all duration-300 mb-8 ${searchFocus ? 'scale-105' : ''}`}>
+      <div className={`bg-gray-800 p-1 rounded-lg border-2 flex items-center overflow-hidden ${searchFocus ? 'border-indigo-500 shadow-lg shadow-indigo-500/30' : 'border-gray-700'}`}>
+        <input
+          type="text"
+          placeholder="Enter LeetCode username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          onFocus={() => setSearchFocus(true)}
+          onBlur={() => setSearchFocus(false)}
+          onKeyPress={handleKeyPress}
+          className="flex-grow px-4 py-3 bg-transparent outline-none text-lg text-white"
+        />
+            <button
+              onClick={fetchProfile}
+              disabled={!username || loading}
+              className={`px-6 py-3 rounded-md font-bold transition-all duration-300 ${
+                !username || loading 
+                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed' 
+                  : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700'
+              }`}
+            >
+        {loading ? (
+          <div className="px-4">
+            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </div>
+        ):"save"}
+        </button>
+      </div>
+    </div>
         {/* Error Message */}
         {error && (
           <div className="mb-6 p-4 bg-red-900/50 border border-red-700 rounded-lg flex items-center">

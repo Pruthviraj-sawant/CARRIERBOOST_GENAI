@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const videorotes = require('./routes/videorotes');
 const resumeRoutes = require('./routes/resumeRoutes');
 const authRoutes = require('./routes/authRoutes');
+const searchRoutes = require('./routes/search');
 
 const app = express();
 app.use(cors());
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 
 app.use('/api/gemini',videorotes);
 
+// app.use('api/users', searchRoutes);
 
 app.use('/api/upload', resumeRoutes);
 
@@ -42,5 +44,8 @@ app.post('/graphql', async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch profile data' });
     }
   });
+  
+
+
   
 module.exports = app;

@@ -27,7 +27,7 @@ function App() {
             <Route path="/letter-generator" element={  <Home />} />
             <Route path="/ai-interviewer" element={<Video/>} />
             <Route path="/resume-chechker" element={<Resume/>} />
-            <Route path="/leetecode-traker" element={<LeetCodeProfileFetcher/>} />
+            {/* <Route path="/leetecode-traker" element={<LeetCodeProfileFetcher/>} /> */}
           
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register />} />

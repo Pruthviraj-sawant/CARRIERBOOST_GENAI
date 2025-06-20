@@ -46,7 +46,8 @@ The SparkelsUI Team`;
 
     // Format the letter with a formal structure (Header, Body, Footer)
     const formattedLetter = `
-Dear Sir/Madam,
+     Dear User,
+     Thank you for your request. Here is the generated letter based on your input:
 
 ${generatedText}
 
