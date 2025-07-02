@@ -6,6 +6,7 @@ const videorotes = require('./routes/videorotes');
 const resumeRoutes = require('./routes/resumeRoutes');
 const authRoutes = require('./routes/authRoutes');
 const searchRoutes = require('./routes/search');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 app.use(cors());
@@ -45,6 +46,8 @@ app.post('/graphql', async (req, res) => {
     }
   });
   
+
+app.use('/api/user', userRoutes);
 
 
   
