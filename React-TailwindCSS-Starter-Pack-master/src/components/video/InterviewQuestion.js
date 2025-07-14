@@ -255,7 +255,7 @@ const InterviewQuestion = ({ previousAnswer }) => {
   };
 
   return (
-    <div className="mt-4 p-4 bg-gray-100 rounded-md shadow-md text-center w-[70%]">
+    <div className="mt-4 p-4 bg-gray-100 rounded-md shadow-md text-center w-[70%] ml-24">
       <h2 className="text-lg font-semibold">Current Question:</h2>
       <p className="mt-2 text-lg font-medium text-gray-700 leading-relaxed">
         {loading ? 'Loading question...' : question || 'Waiting for answer...'}

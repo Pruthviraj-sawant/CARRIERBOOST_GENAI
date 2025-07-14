@@ -17,7 +17,7 @@
 // module.exports = router;
 // backend/routes/geminiRoutes.js
 const express = require('express');
-const { generateQuestion } = require('../services/videostreamservvice'); // fixed typo here
+const { generateJavaQuestion } = require('../services/videostreamservvice'); // fixed typo here
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const question = await generateQuestion(previousAnswer);
+    const question = await generateJavaQuestion(previousAnswer);
     res.json({ question });
   } catch (error) {
     console.error('Error in /generate-question route:', error.message);
