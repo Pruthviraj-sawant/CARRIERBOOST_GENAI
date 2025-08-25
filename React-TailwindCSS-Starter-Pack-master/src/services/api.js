@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const generateLetter = async (prompt) => {
-  const response = await axios.post('http://localhost:5000/api/ask', { prompt });
+  const response = await axios.post('https://carrierboost-genai.onrender.com/api/ask', { prompt });
   return response.data.text;
 };
 
@@ -9,7 +9,7 @@ export const generateLetter = async (prompt) => {
 export const getInterviewQuestion = async (previousAnswer) => {
   try {
     const response = await axios.post(
-      'http://localhost:5000/api/gemini', // API endpoint
+      'https://carrierboost-genai.onrender.com/api/gemini', // API endpoint
       { previousAnswer },                 // Data sent in request body
       {
         headers: {
@@ -31,7 +31,7 @@ export async function uploadResume(file) {
   const formData = new FormData();
   formData.append('resume', file);
 
-  const response = await axios.post('http://localhost:5000/api/upload', formData, {
+  const response = await axios.post('https://carrierboost-genai.onrender.com/api/upload', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }

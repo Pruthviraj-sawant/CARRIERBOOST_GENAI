@@ -20,7 +20,7 @@ const ProfileSettings = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await axios.get('http://localhost:5000/api/user/profile', {
+      const res = await axios.get('https://carrierboost-genai.onrender.com/api/user/profile', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setFormData(res.data);
@@ -34,7 +34,7 @@ const ProfileSettings = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put('http://localhost:5000/api/user/profile', formData, {
+    await axios.put('https://carrierboost-genai.onrender.com/api/user/profile', formData, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     alert('Profile Updated!');

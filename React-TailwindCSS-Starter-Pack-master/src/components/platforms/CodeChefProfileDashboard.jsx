@@ -89,7 +89,7 @@ export default function CodechefProfileTracker() {
 
 async function fetchCodechefProfile(username) {
   try {
-    const response = await fetch(`http://localhost:5000/api/codechef/profile/${username}`);
+    const response = await fetch(`https://carrierboost-genai.onrender.com/api/codechef/profile/${username}`);
     if (!response.ok) throw new Error("User not found");
     return await response.json();
   } catch (error) {
@@ -100,7 +100,7 @@ async function fetchCodechefProfile(username) {
 
 async function fetchCodechefContestHistory(username) {
   try {
-    const response = await fetch(`http://localhost:5000/api/codechef/contests/${username}`);
+    const response = await fetch(`https://carrierboost-genai.onrender.com/api/codechef/contests/${username}`);
     if (!response.ok) throw new Error("Failed to fetch contests data");
     return await response.json();
   } catch (error) {
@@ -111,7 +111,7 @@ async function fetchCodechefContestHistory(username) {
 
 async function fetchCodechefSubmissions(username) {
   try {
-    const response = await fetch(`http://localhost:5000/api/codechef/submissions/${username}`);
+    const response = await fetch(`https://carrierboost-genai.onrender.com/api/codechef/submissions/${username}`);
     if (!response.ok) throw new Error("Failed to fetch submissions data");
     return await response.json();
   } catch (error) {

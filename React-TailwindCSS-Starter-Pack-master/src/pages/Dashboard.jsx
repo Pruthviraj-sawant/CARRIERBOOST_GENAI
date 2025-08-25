@@ -31,7 +31,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/user/profile', {
+        const res = await axios.get('https://carrierboost-genai.onrender.com/api/user/profile', {
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   },
