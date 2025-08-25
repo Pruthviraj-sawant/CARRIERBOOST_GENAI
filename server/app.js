@@ -9,7 +9,13 @@ const searchRoutes = require('./routes/search');
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    // origin:"http://localhost:3000",
+    origin:["https://carrierboost.vercel.app","http://localhost:3000"],
+    // origin:"future-mentor-education-z7bm.vercel.app",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials:true,
+}));
 app.use(express.json());
 
 
