@@ -1,4 +1,4 @@
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Search, User, Code, GitBranch, Star, Activity } from "lucide-react";
 
 function SimpleGithubProfileFetcher() {
@@ -9,52 +9,53 @@ function SimpleGithubProfileFetcher() {
   const [error, setError] = useState("");
   const [searchFocus, setSearchFocus] = useState(false);
 
+  const API_BASE = "https://carrierboost-genai.onrender.com";
 
-    useEffect(() => {
-      const savedUsername = localStorage.getItem("githubUsername");
-      if (savedUsername) {
-        setUsername(savedUsername);
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("githubUsername");
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  // Debounced search when username changes
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      if (username.trim()) {
+        localStorage.setItem("githubUsername", username); // Save to localStorage
+        fetchProfile();
       }
-    }, []);
-  
-    // Debounced search when username changes
-    useEffect(() => {
-      const delayDebounce = setTimeout(() => {
-        if (username.trim()) {
-          localStorage.setItem("githubUsername", username); // Save to localStorage
-          fetchProfile();
-        }
-      }, 600); // debounce time
-  
-      return () => clearTimeout(delayDebounce);
-    }, [username]);
+    }, 600);
+
+    return () => clearTimeout(delayDebounce);
+  }, [username]);
 
   const fetchProfile = async () => {
     if (!username.trim()) {
       setError("Username cannot be empty!");
       return;
     }
+
     setLoading(true);
     setError("");
     setProfile(null);
     setRepos([]);
 
     try {
-      // Fetch user profile
-      const profileResponse = await fetch(`https://api.github.com/users/${username}`);
-      
+      // 🚀 Hit your backend, not GitHub directly
+      const profileResponse = await fetch(`${API_BASE}/github/profile?username=${username}`);
+
       if (!profileResponse.ok) {
         throw new Error("User not found");
       }
-      
+
       const profileData = await profileResponse.json();
       setProfile(profileData);
-      
-      // Fetch top repos
-      const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=5`);
+
+      // Fetch top repos through backend
+      const reposResponse = await fetch(`${API_BASE}/github/repos?username=${username}`);
       const reposData = await reposResponse.json();
       setRepos(reposData);
-      
     } catch (err) {
       setError(err.message || "Failed to fetch profile");
     } finally {
@@ -62,9 +63,8 @@ function SimpleGithubProfileFetcher() {
     }
   };
 
-  // Handle Enter key press
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       fetchProfile();
     }
   };
