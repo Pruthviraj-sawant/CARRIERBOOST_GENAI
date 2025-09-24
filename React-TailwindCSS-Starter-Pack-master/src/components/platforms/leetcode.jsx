@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -12,8 +11,7 @@ function BadassLeetCodeProfileFetcher() {
   const [searchFocus, setSearchFocus] = useState(false);
   const [activeTab, setActiveTab] = useState('profile');
 
-
-
+  const API_BASE = "https://carrierboost-genai.onrender.com"; // ✅ Your backend
 
   // Load saved username from localStorage
   useEffect(() => {
@@ -35,11 +33,6 @@ function BadassLeetCodeProfileFetcher() {
     return () => clearTimeout(delayDebounce);
   }, [username]);
 
-  // Example fetch function
-  
-   
-  
-
   const fetchProfile = async () => {
     if (!username.trim()) {
       setError("Username cannot be empty!");
@@ -50,10 +43,10 @@ function BadassLeetCodeProfileFetcher() {
     setProfile(null);
     setActivityData(null);
     setBadges(null);
-  
+
     try {
-      // Fetch basic profile
-      const profileResponse = await fetch("/graphql", {
+      // ✅ Profile request
+      const profileResponse = await fetch(`${API_BASE}/graphql`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,38 +56,36 @@ function BadassLeetCodeProfileFetcher() {
           operationName: "getUserProfile",
           variables: { username },
           query: `
-           query getUserProfile($username: String!) {
-  matchedUser(username: $username) {
-    username
-    profile {
-      realName
-      aboutMe
-      school
-      websites
-      countryName
-      company 
-      jobTitle
-      skillTags
-      userAvatar
-    }
-  }
-}
+            query getUserProfile($username: String!) {
+              matchedUser(username: $username) {
+                username
+                profile {
+                  realName
+                  aboutMe
+                  school
+                  websites
+                  countryName
+                  company 
+                  jobTitle
+                  skillTags
+                  userAvatar
+                }
+              }
+            }
           `,
         }),
       });
-  
+
       const profileData = await profileResponse.json();
-      
       if (!profileData.data || !profileData.data.matchedUser) {
         setError("User not found!");
         setLoading(false);
         return;
       }
-      
       setProfile(profileData.data.matchedUser);
-      
-      // Fetch activity data
-      const activityResponse = await fetch("/graphql", {
+
+      // ✅ Activity request
+      const activityResponse = await fetch(`${API_BASE}/graphql`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,39 +108,31 @@ function BadassLeetCodeProfileFetcher() {
           `,
         }),
       });
-      
+
       const activityResult = await activityResponse.json();
-      
-      if (activityResult.data && activityResult.data.matchedUser && 
-          activityResult.data.matchedUser.userCalendar) {
-        // Process calendar data for chart
+      if (activityResult.data?.matchedUser?.userCalendar) {
         const calendarData = activityResult.data.matchedUser.userCalendar;
-        
-        // Parse submission calendar (it's stored as a JSON string)
         const submissionCalendar = JSON.parse(calendarData.submissionCalendar || "{}");
-        
-        // Convert to array format for the chart
-        // Only get the last 30 days for better visualization
+
         const today = Math.floor(Date.now() / 1000 / 86400);
-        const last30Days = Array.from({length: 30}, (_, i) => {
+        const last30Days = Array.from({ length: 30 }, (_, i) => {
           const day = today - 29 + i;
           const date = new Date(day * 86400 * 1000);
-          const formattedDate = `${date.getMonth()+1}/${date.getDate()}`;
           return {
-            date: formattedDate,
+            date: `${date.getMonth() + 1}/${date.getDate()}`,
             submissions: submissionCalendar[day] || 0
           };
         });
-        
+
         setActivityData({
           calendar: last30Days,
           streak: calendarData.streak,
           totalActiveDays: calendarData.totalActiveDays
         });
       }
-      
-      // Fetch badges
-      const badgesResponse = await fetch("/graphql", {
+
+      // ✅ Badges request
+      const badgesResponse = await fetch(`${API_BASE}/graphql`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,22 +165,21 @@ function BadassLeetCodeProfileFetcher() {
           `,
         }),
       });
-      
+
       const badgesResult = await badgesResponse.json();
-      
-      if (badgesResult.data && badgesResult.data.matchedUser) {
+      if (badgesResult.data?.matchedUser) {
         setBadges(badgesResult.data.matchedUser.badges || []);
       }
-      
+
     } catch (err) {
       setError("Failed to fetch profile. Please try again.");
     }
+
     setLoading(false);
   };
 
-  // Handle Enter key press
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       fetchProfile();
     }
   };
