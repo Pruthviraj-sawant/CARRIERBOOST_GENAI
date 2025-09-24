@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Eye, EyeOff, User, Mail, Lock, CheckCircle, XCircle } from 'lucide-react';
 
 const Register = () => {
@@ -12,19 +13,12 @@ const Register = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
-      // Simulating API call since axios isn't available
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Mock successful registration
-      if (form.username && form.email && form.password) {
-        setMessage('Registration successful! Welcome aboard! 🎉');
-      } else {
-        throw new Error('Please fill all fields');
-      }
+      const res = await axios.post('https://carrierboost-genai.onrender.com/api/auth/register', form);
+      setMessage(res.data.message || 'Registration successful! 🎉');
     } catch (err) {
-      setMessage('Registration failed. Please try again.');
+      setMessage(err.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +41,7 @@ const Register = () => {
 
         {/* Form Container */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8">
-          <div className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Username Field */}
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -108,7 +102,7 @@ const Register = () => {
 
             {/* Submit Button */}
             <button
-              onClick={handleSubmit}
+              type="submit"
               disabled={isLoading}
               className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-xl hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
             >
@@ -119,9 +113,9 @@ const Register = () => {
                 </div>
               ) : (
                 'Create Account'
-                            )}
+              )}
             </button>
-          </div>
+          </form>
 
           {/* Message Display */}
           {message && (
