@@ -4,7 +4,7 @@ const { generateJavaQuestion } = require('./videostreamservvice');
   try {
     const question = await generateJavaQuestion('advanced'); // options: easy, intermediate, advanced, legendary
     console.log('Java Interview Question:', question);
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    console.error(error.message);
   }
 })();
